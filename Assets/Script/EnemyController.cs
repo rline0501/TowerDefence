@@ -43,7 +43,7 @@ public class EnemyController : MonoBehaviour
 
         //各地点に向けて移動（リファクタリング）
         //３つ目のメソッドを追加
-        transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).onWaypointChange(ChangeAnimeDirection);
+        transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).OnWaypointChange(ChangeAnimeDirection);
     }
 
 
@@ -94,14 +94,13 @@ public class EnemyController : MonoBehaviour
     //currentPos = transform.position;
     //}
 
-
+   
 
     ///<summary>
     ///敵の進行方向を取得して移動アニメと同期
     ///</summary>
     private void ChangeAnimeDirection(int index)　//①引数を追加します
     {　　　　　
-
         Debug.Log(index); //②ここからif文全文を追加します
 
         //次の移動先の地点がない場合には、ここで処理を終了する
@@ -114,7 +113,7 @@ public class EnemyController : MonoBehaviour
         Vector3 direction = (transform.position - paths[index]).normalized;
         Debug.Log(direction);
 
-        //アニメーションの Palameter の値を更新し、移動アニメの BlendTree を制御して移動の方向と移動アニメを同期
+        //アニメーションの Palameter の値を更新し、移動アニメのBlendTree を制御して移動の方向と移動アニメを同期
         anim.SetFloat("X", direction.x);
         anim.SetFloat("Y", direction.y);
 
