@@ -3,7 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -40,4 +41,13 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Walk
+    uniqueID: 1944460457
+    locked: 0
+  - name: Collider
+    uniqueID: 1383311965
+    locked: 0
+  - name: Chara
+    uniqueID: 3863361561
     locked: 0
