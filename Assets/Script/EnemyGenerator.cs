@@ -32,7 +32,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <returns></returns>
     public IEnumerator PreparateEnemyGenerate(GameManager gameManager)
     {
-        //??
+        //引数を通じて届いた情報を自分のクラスにある変数に代入している
         this.gameManager = gameManager;
 
         //生成用のタイマー用意

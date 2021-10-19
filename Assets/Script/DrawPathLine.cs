@@ -8,7 +8,7 @@ public class DrawPathLine : MonoBehaviour
     private float startLineWidth = 0.5f;
 
     [SerializeField]
-    private float endLineWidth;
+    private float endLineWidth = 0.5f;
 
     /// <summary>
     /// Œo˜H—p‚Ìƒ‰ƒCƒ“¶¬

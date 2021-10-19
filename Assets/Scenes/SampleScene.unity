@@ -5321,7 +5321,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyGenerator: {fileID: 1223307299}
   isEnemyGenerate: 0
-  generateIntervalTime: 100
+  generateIntervalTime: 1000
   generateEnemyCount: 0
   maxEnemyCount: 5
 --- !u!4 &1697156351
@@ -5505,6 +5505,10 @@ PrefabInstance:
     - target: {fileID: 3063066542877331551, guid: eb68fb26528af334b8a2ac5d6968266e, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 3063066542877331551, guid: eb68fb26528af334b8a2ac5d6968266e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3063066542877331551, guid: eb68fb26528af334b8a2ac5d6968266e, type: 3}
       propertyPath: m_TagString
