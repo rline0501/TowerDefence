@@ -37,7 +37,7 @@ public class CharaController : MonoBehaviour
             //EnemyControllerがアタッチされているゲームオブジェクトを判別しているので
             //ここで今までのTagによる判定と同じ動作で判定が行えます
             //そのため↑の処理からTagの処理を削除しています
-            if (collision.gameObject.TryGetComponent(out enemy))
+            if (collision.gameObject.TryGetComponent(out enemy) == true)
             {
                 //TODO 情報を取得できたら攻撃状態にする
                 isAttack = true;
