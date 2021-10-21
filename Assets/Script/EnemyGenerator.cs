@@ -92,6 +92,30 @@ public class EnemyGenerator : MonoBehaviour
 
         //TODO 実装したい処理を日本語のコメントとして残しておくようにする
 
+        //移動する地点を取得(<=いままでEnemyControllerスクリプト内で行っていた処理をこちらに移動します)
+        Vector3[] paths = pathData.pathTranArray.Select(x => x.position).ToArray();
+
+        //敵キャラの初期設定を行い、移動を一時停止しておく
+        enemyController.SetUpEnemyController(paths);
+
+        //敵の移動経路のライン表示を生成の準備
+        StartCoroutine(PreparateCreatePathLine(paths, enemyController));
+
+    }
+
+     ///<summary>
+    ///ライン生成の準備
+    ///</summary>
+    ///<param name="paths"></param>
+    ///<returns></returns>
+    private IEnumerator PreparateCreatePathLine(Vector3[] paths, EnemyController enemyController)
+    {
+
+        //ラインの生成と削除。この処理が終了するまでは、この処理より下の処理は実行されない
+        yield return StartCoroutine(CreatePathLine(paths));
+
+        //敵の移動を再開
+        enemyController.ResumeMove();
     }
 
     /// <summary>
