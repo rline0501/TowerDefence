@@ -31,8 +31,16 @@ public class EnemyController : MonoBehaviour
     //敵キャラの現在の位置情報
     //private Vector3 currentPos;
 
-    void Start()
+    /// <summary>
+    /// 敵の設定
+    /// </summary>
+    public void SetUpEnemyController(Vector3[] pathsData)
     {
+
+    
+
+    //void Start()
+    //{
         hp = maxHp;
 
         //Animatorコンポーネントを取得してanim変数に代入
@@ -48,7 +56,10 @@ public class EnemyController : MonoBehaviour
         }
 
         //移動する地点を取得（上と同じ）
-        paths = pathData.pathTranArray.Select(x => x.position).ToArray();
+        //paths = pathData.pathTranArray.Select(x => x.position).ToArray();
+
+        //移動する地点を取得（↑から変更）
+        paths = pathsData;
 
         //各地点に向けて移動
         //transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear);
@@ -60,6 +71,9 @@ public class EnemyController : MonoBehaviour
 
         // 各地点に向けて移動。今後この処理を制御するためTween型の変数にDOPathメソッドの処理を代入しておく
         tween = transform.DOPath(paths, 1000 / moveSpeed).SetEase(Ease.Linear).OnWaypointChange(ChangeAnimeDirection);    //  <=  DOPath の処理を tween 変数に代入します
+
+        //移動を一時停止
+        PauseMove();
 
     }
 
@@ -215,5 +229,20 @@ public class EnemyController : MonoBehaviour
 
         //敵キャラの破壊
         Destroy(gameObject);
+    }
+
+
+    /// <summary>
+    /// 移動を一時停止
+    /// </summary>
+    public void PauseMove()
+    {
+        tween.Pause();
+    }
+
+
+    public void ResumeMove()
+    {
+        tween.Play();
     }
 }
