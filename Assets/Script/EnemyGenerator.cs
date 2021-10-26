@@ -9,7 +9,7 @@ public class EnemyGenerator : MonoBehaviour
     private EnemyController enemyControllerPrefab;
 
     [SerializeField]
-    private PathData pathData;
+    private PathData[] pathDatas;
 
     [SerializeField]
     private DrawPathLine pathLinePrefab;
@@ -87,13 +87,16 @@ public class EnemyGenerator : MonoBehaviour
     /// </summary>
     public void GenerateEnemy()
     {
+        //ランダムな値を配列の最大要素数内で取得
+        int randomValue = Random.Range(0, pathDatas.Length);
+
         //指定した位置に敵を生成
-        EnemyController enemyController = Instantiate(enemyControllerPrefab, pathData.generateTran.position, Quaternion.identity);
+        EnemyController enemyController = Instantiate(enemyControllerPrefab, pathDatas[randomValue].generateTran.position, Quaternion.identity);
 
         //TODO 実装したい処理を日本語のコメントとして残しておくようにする
 
         //移動する地点を取得(<=いままでEnemyControllerスクリプト内で行っていた処理をこちらに移動します)
-        Vector3[] paths = pathData.pathTranArray.Select(x => x.position).ToArray();
+        Vector3[] paths = pathDatas[randomValue].pathTranArray.Select(x => x.position).ToArray();
 
         //敵キャラの初期設定を行い、移動を一時停止しておく
         enemyController.SetUpEnemyController(paths);

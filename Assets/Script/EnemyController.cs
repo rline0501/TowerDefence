@@ -28,6 +28,8 @@ public class EnemyController : MonoBehaviour
     //Animatorコンポーネントの取得用
     private Animator anim;
 
+    public int attackPower;
+
     //敵キャラの現在の位置情報
     //private Vector3 currentPos;
 
