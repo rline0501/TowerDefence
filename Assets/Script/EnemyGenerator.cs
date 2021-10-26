@@ -139,11 +139,11 @@ public class EnemyGenerator : MonoBehaviour
 
             drawPathLinesList.Add(drawPathLine);
 
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(1.0f);
         }
 
         //‚·‚×‚Ä‚Ìƒ‰ƒCƒ“‚ğ¶¬‚µ‚Ä‘Ò‹@
-        yield return new WaitForSeconds(0.1f);
+        yield return new WaitForSeconds(1.0f);
 
         //‚P‚Â‚Ìƒ‰ƒCƒ“‚¸‚Â‡”Ô‚Éíœ‚·‚é
         for(int i = 0; i < drawPathLinesList.Count; i++)
