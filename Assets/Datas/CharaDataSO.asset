@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f1a9f233802c3e8418b4cf8dcb5b1214, type: 3}
+  m_Name: CharaDataSO
+  m_EditorClassIdentifier: 
+  charaDatasList:
+  - CharaNo: 1
+    cost: 0
+    charaSprite: {fileID: 0}
+    charaName: skadi
+    attackPower: 0
+    attackRange: 0
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
+  - CharaNo: 2
+    cost: 0
+    charaSprite: {fileID: 0}
+    charaName: chen
+    attackPower: 15
+    attackRange: 0
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
+  - CharaNo: 3
+    cost: 0
+    charaSprite: {fileID: 0}
+    charaName: lapulme
+    attackPower: 0
+    attackRange: 1
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
+  - CharaNo: 4
+    cost: 0
+    charaSprite: {fileID: 0}
+    charaName: exusia
+    attackPower: 14
+    attackRange: 2
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
+  - CharaNo: 5
+    cost: 0
+    charaSprite: {fileID: 0}
+    charaName: ash
+    attackPower: 18
+    attackRange: 3
+    intervalAttackTime: 0
+    maxAttackCount: 0
+    discription: 
