@@ -17,10 +17,10 @@ MonoBehaviour:
     cost: 0
     charaSprite: {fileID: 0}
     charaName: skadi
-    attackPower: 0
+    attackPower: 10
     attackRange: 0
-    intervalAttackTime: 0
-    maxAttackCount: 0
+    intervalAttackTime: 100
+    maxAttackCount: 3
     discription: 
   - CharaNo: 2
     cost: 0
