@@ -211,7 +211,7 @@ public class EnemyController : MonoBehaviour
 
 
         // TODO ヒットストップ演出
-
+        StartCoroutine(WaitMove());
     }
 
     /// <summary>
@@ -242,9 +242,21 @@ public class EnemyController : MonoBehaviour
         tween.Pause();
     }
 
-
+    /// <summary>
+    /// 移動を開始
+    /// </summary>
     public void ResumeMove()
     {
         tween.Play();
+    }
+
+    private IEnumerator WaitMove()
+    {
+        tween.timeScale = 0.05f;
+
+        yield return new WaitForSeconds(0.5f);
+
+        tween.timeScale = 1.0f;
+
     }
 }
