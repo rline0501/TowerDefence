@@ -35,7 +35,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
         canvasGroup.alpha = 0;
 
         //徐々にポップアップを表示する
-        ShowPopUp();
+        HidePopUp();
 
         //各ボタンの操作を押せない状態にする
         SwitchActiveButtons(false);
@@ -77,7 +77,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
 
 
         //ポップアップの表示
-        canvasGroup.DOFade(1.0f, 0.5f);
+        canvasGroup.DOFade(1.0f, 1.5f);
     }
 
     /// <summary>

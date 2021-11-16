@@ -7,6 +7,9 @@ public class GameManager : MonoBehaviour
     [SerializeField]
     private EnemyGenerator enemyGenerator;
 
+    [SerializeField]
+    private CharaGenerator charaGenerator;
+
     //ここにEnemyGeneratorスクリプト側の変数を４つ移管します
     public bool isEnemyGenerate;
 
@@ -19,6 +22,9 @@ public class GameManager : MonoBehaviour
 
     void Start()
     {
+        //キャラ配置用ポップアップの生成と設定
+        StartCoroutine(charaGenerator.SetUpCharaGenerator(this));
+
         isEnemyGenerate = true;
 
         //敵の生成準備開始
