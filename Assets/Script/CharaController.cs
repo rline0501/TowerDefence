@@ -165,7 +165,7 @@ public class CharaController : MonoBehaviour
 
         //DataBaseManagerに登録されているAttackRangeSizeSOスクリプタブル・オブジェクトのデータと照合を行い
         //CharaDataのAttackRangeTypeの情報を元にSizeを設定
-        attackRangeArea.size = DataBaseManager.instance.attackRangeSizeSO.GetAttackRangeSize(this.charaData.attackRange);
+        attackRangeArea.size = DataBaseManager.instance.GetAttackRangeSize(this.charaData.attackRange);
 
         attackCount = this.charaData.maxAttackCount;
 

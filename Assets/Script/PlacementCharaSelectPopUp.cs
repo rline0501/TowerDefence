@@ -50,6 +50,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
     private List<SelectCharaDetail> selectCharaDetailList = new List<SelectCharaDetail>();
 
     //現在選択しているキャラの情報を管理する
+    [SerializeField]
     private CharaData chooseCharaData;
 
 
@@ -181,6 +182,10 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
         txtPickupCharaCost.text = charaData.cost.ToString();
 
         txtPickupCharaMaxAttackCount.text = charaData.maxAttackCount.ToString();
+
+        //キャラの情報を選択したボタンに応じて付与して、
+        //生成時に指定したキャラの情報を参照できるように代入する
+        chooseCharaData = charaData;
     }
 
 }
