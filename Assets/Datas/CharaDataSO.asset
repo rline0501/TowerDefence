@@ -13,48 +13,53 @@ MonoBehaviour:
   m_Name: CharaDataSO
   m_EditorClassIdentifier: 
   charaDatasList:
-  - CharaNo: 1
-    cost: 0
-    charaSprite: {fileID: 0}
+  - CharaNo: 0
+    cost: 1
+    charaSprite: {fileID: 3882672901716571629, guid: 8de79085f616ce04da9f6ad8713e8648, type: 3}
     charaName: skadi
     attackPower: 10
     attackRange: 0
     intervalAttackTime: 100
     maxAttackCount: 3
     discription: 
-  - CharaNo: 2
-    cost: 0
-    charaSprite: {fileID: 0}
+    charaAnim: {fileID: 7400000, guid: 9b27d75fe39d42947ace94980fafd9ba, type: 2}
+  - CharaNo: 1
+    cost: 2
+    charaSprite: {fileID: 1417418600769736651, guid: 0a0cccca149f6634cab09e070cc94221, type: 3}
     charaName: chen
     attackPower: 15
     attackRange: 0
-    intervalAttackTime: 0
-    maxAttackCount: 0
+    intervalAttackTime: 100
+    maxAttackCount: 3
     discription: 
-  - CharaNo: 3
+    charaAnim: {fileID: 7400000, guid: 684eab00c3b08f14db76987fb99e611e, type: 2}
+  - CharaNo: 2
     cost: 0
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: -341142852900414967, guid: 136f1b58692ab6942b6a466ce556b9a6, type: 3}
     charaName: lapulme
-    attackPower: 0
+    attackPower: 1000
     attackRange: 1
-    intervalAttackTime: 0
-    maxAttackCount: 0
+    intervalAttackTime: 100
+    maxAttackCount: 3
     discription: 
-  - CharaNo: 4
-    cost: 0
-    charaSprite: {fileID: 0}
+    charaAnim: {fileID: 7400000, guid: f32c520303b659948b90e31d81176818, type: 2}
+  - CharaNo: 3
+    cost: 3
+    charaSprite: {fileID: -3379104150407322251, guid: 81d283862d7e56d4086094e0c9e24bc2, type: 3}
     charaName: exusia
     attackPower: 14
     attackRange: 2
-    intervalAttackTime: 0
-    maxAttackCount: 0
+    intervalAttackTime: 100
+    maxAttackCount: 3
     discription: 
-  - CharaNo: 5
+    charaAnim: {fileID: 7400000, guid: d995fe2dac2cd71439381b1ded8d34c7, type: 2}
+  - CharaNo: 4
     cost: 0
-    charaSprite: {fileID: 0}
+    charaSprite: {fileID: 4260407526144831611, guid: f9e11b2188f82ff438a5966640b5b11f, type: 3}
     charaName: ash
     attackPower: 18
     attackRange: 3
-    intervalAttackTime: 0
-    maxAttackCount: 0
+    intervalAttackTime: 100
+    maxAttackCount: 3
     discription: 
+    charaAnim: {fileID: 7400000, guid: 1f39cd7bfd507a5438bc2c3f63ff682c, type: 2}
