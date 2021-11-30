@@ -19,6 +19,20 @@ public class GameManager : MonoBehaviour
 
     public int maxEnemyCount;
 
+    public enum GameState
+    {
+        Preparate,
+        Play,
+        Stop,
+        GameUp
+    }
+
+
+    //現在のGameStateの状態。上記から1つだけ代入される
+    public GameState currentGameState;
+
+    public UIManager uIManager;
+
 
     void Start()
     {
@@ -29,6 +43,11 @@ public class GameManager : MonoBehaviour
 
         //敵の生成準備開始
         StartCoroutine(enemyGenerator.PreparateEnemyGenerate(this));
+
+        currentGameState = GameState.Play;
+
+        //TODO カレンシーの自動獲得処理の開始
+        StartCoroutine(TimeToCurrency());
     }
 
     /// <summary>
@@ -52,5 +71,31 @@ public class GameManager : MonoBehaviour
         {
             isEnemyGenerate = false;
         }
+    }
+
+    public IEnumerator TimeToCurrency()
+    {
+        int timer = 0;
+
+        //ゲームプレイ中のみ加算
+        while (currentGameState == GameState.Play)
+        {
+            timer++;
+
+            //既定の時間が経過し、カレンシーが最大でなければ
+            if (timer > GameData.instance.maxCurrencyIntervalTime && GameData.instance.currency < GameData.instance.maxCurrency)
+            {
+                timer = 0;
+
+                //最大値以下になるようにカレンシーを加算
+                GameData.instance.currency = Mathf.Clamp(GameData.instance.currency += GameData.instance.addCurrencyPoint, 0, GameData.instance.maxCurrency);
+
+                //カレンシーの画面表示を更新
+                uIManager.UpdateDisplayCurrency();
+            }
+
+            yield return null;
+        }
+
     }
 }
