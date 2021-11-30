@@ -22,7 +22,23 @@ public class CharaController : MonoBehaviour
     [SerializeField]
     private UnityEngine.UI.Text txtAttackCount;
 
-   private void OnTriggerStay2D(Collider2D collision)
+    [SerializeField]
+    private BoxCollider2D attackRangeArea;
+
+    [SerializeField]
+    private CharaData charaData;
+
+    private GameManager gameManager;
+
+    //private SpriteRenderer spriteRenderer;
+
+    private Animator anim;
+
+    private string overrideClipName = "Chara_0";
+
+    private AnimatorOverrideController overrideController;
+
+    private void OnTriggerStay2D(Collider2D collision)
    {
         //攻撃範囲用のコライダーに侵入したゲームオブジェクトのTagがEnemyである場合で、かつ攻撃中ではない場合で、かつ敵の情報を未取得である場合
         if (collision.tag == "Enemy" && !isAttack && !enemy)
@@ -132,4 +148,73 @@ public class CharaController : MonoBehaviour
         txtAttackCount.text = attackCount.ToString();
     }
 
+    /// <summary>
+    /// キャラの設定
+    /// </summary>
+    /// <param name="charaData"></param>
+    /// <param name="gameManager"></param>
+    public void SetUpChara(CharaData charaData, GameManager gameManager)
+    {
+        this.charaData = charaData;
+        this.gameManager = gameManager;
+
+        //各値をCharaDataから取得して設定
+        attackPower = this.charaData.attackPower;
+
+        intervalAttackTime = this.charaData.intervalAttackTime;
+
+        //DataBaseManagerに登録されているAttackRangeSizeSOスクリプタブル・オブジェクトのデータと照合を行い
+        //CharaDataのAttackRangeTypeの情報を元にSizeを設定
+        attackRangeArea.size = DataBaseManager.instance.attackRangeSizeSO.GetAttackRangeSize(this.charaData.attackRange);
+
+        attackCount = this.charaData.maxAttackCount;
+
+        //残りの攻撃回数の表示更新
+        UpdateDisplayAttackCount();
+
+        //キャラ画像の設定。アニメを利用するようになったら、この処理はやらない
+        //if (TryGetComponent(out spriteRenderer))
+        //{
+
+            //画像を配置したキャラの画像に差し替える
+            //spriteRenderer.sprite = this.charaData.charaSprite;
+        //}
+
+        //TODO キャラごとの AnimationClip を設定
+        SetUpAnimation();
+
+    }
+
+    /// <summary>
+    /// Motionに登録されているAnimationClipを変更
+    /// </summary>
+    private void SetUpAnimation()
+    {
+        if (TryGetComponent(out anim))
+        {
+
+            overrideController = new AnimatorOverrideController();
+
+            overrideController.runtimeAnimatorController = anim.runtimeAnimatorController;
+            anim.runtimeAnimatorController = overrideController;
+
+            AnimatorStateInfo[] layerInfo = new AnimatorStateInfo[anim.layerCount];
+
+            for (int i = 0; i < anim.layerCount; i++)
+            {
+                layerInfo[i] = anim.GetCurrentAnimatorStateInfo(i);
+            }
+
+            overrideController[overrideClipName] = this.charaData.charaAnim;
+
+            anim.runtimeAnimatorController = overrideController;
+
+            anim.Update(0.0f);
+
+            for (int i = 0; i < anim.layerCount; i++)
+            {
+                anim.Play(layerInfo[i].fullPathHash, i, layerInfo[i].normalizedTime);
+            }
+        }
+    }
 }

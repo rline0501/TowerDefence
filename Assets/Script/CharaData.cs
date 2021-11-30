@@ -34,5 +34,8 @@ public class CharaData
     //詳細情報
     public string discription;
 
+    //アニメーション
+    public AnimationClip charaAnim;
+
     //TODO他にもあれば追加
 }
