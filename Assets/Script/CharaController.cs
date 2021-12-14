@@ -81,9 +81,10 @@ public class CharaController : MonoBehaviour
         while (isAttack)
         {
             //TODO　ゲームプレイ中のみ攻撃する
+            if (gameManager.currentGameState == GameManager.GameState.Play)
+            {
 
-
-            timer++;
+                timer++;
 
             //攻撃のための待機時間が経過したら
             if(timer > intervalAttackTime)
@@ -105,7 +106,13 @@ public class CharaController : MonoBehaviour
                 {
                     //キャラ破壊
                     Destroy(gameObject);
+
+                        //キャラのリストから情報を削除
+                        gameManager.RemoveCharasList(this);
                 }
+                
+            }
+           
             }
 
             //１フレーム処理を中断する(この処理を書き忘れると∞ループになってUnity壊れる)

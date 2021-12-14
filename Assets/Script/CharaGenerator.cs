@@ -43,9 +43,13 @@ public class CharaGenerator : MonoBehaviour
     void Update()
     {
         //TODO 配置できる最大キャラ数に達している場合には配置できない
+        if (gameManager.GetPlacementCharaCount() >= GameData.instance.maxCharaPlacementCount)
+        {
+            return;
+        }
 
-        //画面をタップ（マウスクリック）し、かつ配置キャラポップアップが非表示状態なら
-        if (Input.GetMouseButtonDown(0) && !placementCharaSelectPopUp.gameObject.activeSelf)
+        //画面をタップ（マウスクリック）し、かつ配置キャラポップアップが非表示状態かつ、ゲームの現在の進行状態がPlayなら
+        if (Input.GetMouseButtonDown(0) && !placementCharaSelectPopUp.gameObject.activeSelf && gameManager.currentGameState == GameManager.GameState.Play)
         {
 
             //画面をタップ(マウスクリック)したら
@@ -127,11 +131,17 @@ public class CharaGenerator : MonoBehaviour
         yield return null;
     }
 
+
+    /// <summary>
+    /// 配置キャラ選択用のポップアップの表示
+    /// </summary>
     public void ActivatePlacementCharaSelectPopUp()
     {
         //ゲームの進行状態をゲーム停止に変更
+        gameManager.SetGameState(GameManager.GameState.Stop);
 
         //TODO すべての敵の移動を一時停止
+        gameManager.PauseEnemies();
 
         //配置キャラ選択用のポップアップの表示
         placementCharaSelectPopUp.gameObject.SetActive(true);
@@ -149,12 +159,29 @@ public class CharaGenerator : MonoBehaviour
         placementCharaSelectPopUp.gameObject.SetActive(false);
 
         //TODO ゲームオーバーやゲームクリアではない場合
+        if(gameManager.currentGameState == GameManager.GameState.Stop)
+        {
+
+            //ゲームの進行状態をプレイ中に変えてゲーム再開
+            //gameManager.SetGameState(GameManager.GameState.Play);
+
+
+           // gameManager.ResumeEnemies();
+
+
+            //StartCoroutine(gameManager.TimeToCurrency());
+
+        }
 
         //TODO ゲームの進行状態をプレイ中に変更して、ゲーム再開
+        gameManager.SetGameState(GameManager.GameState.Play);
 
         //TODO すべての敵の移動を再開
+        gameManager.ResumeEnemies();
 
         //TODO カレンシーの加算処理を再開
+        StartCoroutine(gameManager.TimeToCurrency());
+
     }
 
     /// <summary>
@@ -179,7 +206,7 @@ public class CharaGenerator : MonoBehaviour
     {
 
         //TODO コスト支払い
-
+        GameData.instance.currency -= charaData.cost;
 
         //キャラをタップした位置に生成
         CharaController chara = Instantiate(charaControllerPrefab, gridPos, Quaternion.identity);
@@ -194,6 +221,6 @@ public class CharaGenerator : MonoBehaviour
         //Debug.Log(charaData.name);
 
         //TODO キャラをListに追加
-
+        gameManager.AddCharasList(chara);
     }
 }

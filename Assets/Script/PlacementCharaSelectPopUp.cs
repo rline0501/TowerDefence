@@ -47,7 +47,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
 
     //生成したキャラのボタンを管理する
     [SerializeField]
-    private List<SelectCharaDetail> selectCharaDetailList = new List<SelectCharaDetail>();
+    private List<SelectCharaDetail> selectCharaDetailsList = new List<SelectCharaDetail>();
 
     //現在選択しているキャラの情報を管理する
     [SerializeField]
@@ -86,7 +86,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
             selectCharaDetail.SetUpSelectCharaDetail(this, haveCharaDataList[i]);
 
             //Listに追加
-            selectCharaDetailList.Add(selectCharaDetail);
+            selectCharaDetailsList.Add(selectCharaDetail);
 
             //TODO 最初に生成したボタンの場合
             if (i == 0)
@@ -120,7 +120,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
     public void ShowPopUp()
     {
         //TODO 各キャラのボタンの制御
-
+        CheckAllCharaButtons();
 
         //ポップアップの表示
         canvasGroup.DOFade(1.0f, 1.5f);
@@ -132,7 +132,10 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
     private void OnClickSubmitChooseChara()
     {
         //TODO コストの支払いが可能か最終確認
-
+        if (chooseCharaData.cost > GameData.instance.currency)
+        {
+            return;
+        }
 
         //選択しているキャラの生成
         charaGenerator.CreateChooseChara(chooseCharaData);
@@ -158,7 +161,7 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
     {
 
         //TODO 各キャラのボタンの制御
-
+        CheckAllCharaButtons();
 
         //ポップアップの非表示
         canvasGroup.DOFade(0, 0.5f).OnComplete(() => charaGenerator.InactivatePlacementCharaSelectPopUp());
@@ -186,6 +189,24 @@ public class PlacementCharaSelectPopUp : MonoBehaviour
         //キャラの情報を選択したボタンに応じて付与して、
         //生成時に指定したキャラの情報を参照できるように代入する
         chooseCharaData = charaData;
+    }
+
+    /// <summary>
+    /// コストが支払えるかどうかを各SelectCharaDetailで確認してボタン押下機能を切り替え
+    /// </summary>
+    private void CheckAllCharaButtons()
+    {
+
+        // 配置できるキャラがいる場合のみ処理を行う
+        if (selectCharaDetailsList.Count > 0)
+        {
+
+            // 各キャラのコストとカレンシーを確認して、配置できるかどうかを判定してボタンの押下有無を設定
+            for (int i = 0; i < selectCharaDetailsList.Count; i++)
+            {
+                selectCharaDetailsList[i].ChangeActivateButton(selectCharaDetailsList[i].JudgePermissionCost(GameData.instance.currency));
+            }
+        }
     }
 
 }

@@ -45,33 +45,36 @@ public class EnemyGenerator : MonoBehaviour
         //isEnemyGenetate が true の間はループする
         while (gameManager.isEnemyGenerate)
         {
-
-            //タイマーを加算
-            timer++;
-
-            //タイマーの値が敵の生成待機時間を超えたら
-            if (timer > gameManager.generateIntervalTime)
+            if (this.gameManager.currentGameState == GameManager.GameState.Play)
             {
-                //次の生成のためにタイマーをリセット
-                timer = 0;
 
-                //敵の生成
-                GenerateEnemy();
+                //タイマーを加算
+                timer++;
 
-                // 敵の生成数のカウントアップとListへの追加
-                gameManager.AddEnemyList();
+                //タイマーの値が敵の生成待機時間を超えたら
+                if (timer > gameManager.generateIntervalTime)
+                {
+                    //次の生成のためにタイマーをリセット
+                    timer = 0;
 
-                // 最大生成数を超えたら生成停止
-                gameManager.JudgeGenerateEnemysEnd();
+                    //敵の生成
+                    //GenerateEnemy();
 
-                //↑で代わりに行うため削除
-                //生成した数をカウントアップ
-                //generateEnemyCount++;
-                //敵の最大生成数を超えたら
-                //if (generateEnemyCount >= maxEnemyCount){
+                    // 敵の生成数のカウントアップとListへの追加
+                    gameManager.AddEnemyList(GenerateEnemy());
+
+                    // 最大生成数を超えたら生成停止
+                    gameManager.JudgeGenerateEnemysEnd();
+
+                    //↑で代わりに行うため削除
+                    //生成した数をカウントアップ
+                    //generateEnemyCount++;
+                    //敵の最大生成数を超えたら
+                    //if (generateEnemyCount >= maxEnemyCount){
                     //生成停止
                     //isEnemyGenerate = false;
-                //}
+                    //}
+                }
             }
 
             //1フレーム中断
@@ -85,7 +88,7 @@ public class EnemyGenerator : MonoBehaviour
     /// <summary>
     /// 敵の生成
     /// </summary>
-    public void GenerateEnemy()
+    public EnemyController GenerateEnemy(int generateNo = 0)
     {
         //ランダムな値を配列の最大要素数内で取得
         int randomValue = Random.Range(0, pathDatas.Length);
@@ -99,10 +102,13 @@ public class EnemyGenerator : MonoBehaviour
         Vector3[] paths = pathDatas[randomValue].pathTranArray.Select(x => x.position).ToArray();
 
         //敵キャラの初期設定を行い、移動を一時停止しておく
-        enemyController.SetUpEnemyController(paths);
+        enemyController.SetUpEnemyController(paths, gameManager);
 
         //敵の移動経路のライン表示を生成の準備
         StartCoroutine(PreparateCreatePathLine(paths, enemyController));
+
+        //戻り値の設定
+        return enemyController;
 
     }
 
@@ -116,6 +122,9 @@ public class EnemyGenerator : MonoBehaviour
 
         //ラインの生成と削除。この処理が終了するまでは、この処理より下の処理は実行されない
         yield return StartCoroutine(CreatePathLine(paths));
+
+        //GameStateがPlayになるまで処理を停止
+        yield return new WaitUntil(() => gameManager.currentGameState == GameManager.GameState.Play);
 
         //敵の移動を再開
         enemyController.ResumeMove();

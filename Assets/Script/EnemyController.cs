@@ -28,6 +28,8 @@ public class EnemyController : MonoBehaviour
     //Animatorコンポーネントの取得用
     private Animator anim;
 
+    private GameManager gameManager;
+
     public int attackPower;
 
     //敵キャラの現在の位置情報
@@ -36,9 +38,10 @@ public class EnemyController : MonoBehaviour
     /// <summary>
     /// 敵の設定
     /// </summary>
-    public void SetUpEnemyController(Vector3[] pathsData)
+    public void SetUpEnemyController(Vector3[] pathsData, GameManager gameManager)
     {
-
+        //GameManagerクラスを使えるようにする
+        this.gameManager = gameManager;
     
 
     //void Start()
@@ -228,6 +231,10 @@ public class EnemyController : MonoBehaviour
 
         //TODO 破壊時のエフェクトの生成や関連する処理
 
+
+        //敵を破壊した数をカウントアップする
+        //さらにこのメソッド内で、敵の情報を管理しているリストからこの敵の情報を削除もしてもらうために、EnemyControllerの情報を引数で渡している
+        gameManager.CountUpDestoryEnemyCount(this);
 
         //敵キャラの破壊
         Destroy(gameObject);
